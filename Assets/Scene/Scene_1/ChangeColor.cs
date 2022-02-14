@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ChangeColor : MonoBehaviour
+public class ChangeColor : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("Dependencies")]
     [SerializeField] MeshRenderer _renderer;
@@ -33,4 +33,18 @@ public class ChangeColor : MonoBehaviour
         UseColor(_baseColor);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _renderer.sharedMaterial.SetColor("_BaseColor", _overColor);
+    }
+
+    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+    {
+        _renderer.sharedMaterial.SetColor("_BaseColor", _baseColor);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        _renderer.sharedMaterial.SetColor("_BaseColor", _clickColor);
+    }
 }
